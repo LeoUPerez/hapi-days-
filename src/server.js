@@ -1,6 +1,7 @@
 'use strict';
 
 import Hapi from '@hapi/hapi'
+import instanceRoutes from './routes/index.js';
 
 const init = async () => {
 
@@ -9,14 +10,9 @@ const init = async () => {
         host: 'localhost'
     });
 
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: (request, h) => {
+    const allRoutes = await instanceRoutes();
 
-            return 'Hello World!';
-        }
-    });
+    await server.register(allRoutes);
 
     await server.start();
     console.log('Server running on %s', server.info.uri);
