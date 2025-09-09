@@ -1,0 +1,6 @@
+{
+    "watch": ["server", "src"],
+    "ignore": ["*.test.ts", "node_modules"],
+    "ext": "js,json",
+    "delay": "3"
+}
