@@ -10,8 +10,16 @@ const init = async () => {
         host: 'localhost'
     });
 
-    const allRoutes = await instanceRoutes();
+    // route context -> it does not keep the state, it executes in every petition
+    server.ext('onPreHandler', (request, h) => {
+        request.app.context = {
+            test: 'context test'
+        }
 
+        return h.continue;
+    });
+
+    const allRoutes = await instanceRoutes();
     await server.register(allRoutes);
 
     await server.start();
